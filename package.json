@@ -1,0 +1,39 @@
+{
+  "name": "@expo/transparent-video",
+  "version": "0.0.1",
+  "description": "An Android transparent video component for React Native and Expo",
+  "keywords": [
+    "react-native",
+    "expo",
+    "video",
+    "player",
+    "transparent"
+  ],
+  "homepage": "todo",
+  "repository": {
+    "type": "git",
+    "url": "todo"
+  },
+  "license": "MIT",
+  "sideEffects": false,
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "build": "expo-module build",
+    "clean": "expo-module clean",
+    "expo-module": "expo-module",
+    "lint": "expo-module lint",
+    "prepare": "expo-module prepare",
+    "prepublishOnly": "expo-module prepublishOnly",
+    "test": "expo-module test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "expo-module-scripts": "^3.0.0"
+  },
+  "peerDependencies": {
+    "@expo/video": "0.0.1-canary-20240406-a4950c7",
+    "expo": "*"
+  },
+  "title": "Expo Transparent Video"
+}
