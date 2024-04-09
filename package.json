@@ -28,7 +28,7 @@
     "test": "expo-module test"
   },
   "dependencies": {
-    "expo-video": "0.0.1-canary-20240327-a7302d9",
+    "expo-video": "0.0.1-canary-20240327-a7302d9"
   },
   "devDependencies": {
     "expo-module-scripts": "^3.0.0"
