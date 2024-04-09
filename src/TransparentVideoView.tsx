@@ -2,7 +2,9 @@ import { createRef, PureComponent, ReactNode } from 'react';
 
 import NativeTransparentVideoView from './NativeTransparentVideoView';
 import NativeVideoModule from './NativeVideoModule';
-import { TransparentVideoViewProps, VideoPlayer, VideoSource } from './VideoView.types';
+import { TransparentVideoViewProps } from './VideoView.types';
+import { VideoSource } from 'expo-video';
+import { VideoPlayer } from 'expo-video/build/VideoView.types';
 
 /**
  * Displays a video with an alpha channel.

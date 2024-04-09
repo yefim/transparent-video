@@ -1,5 +1,5 @@
 {
-  "name": "@expo/transparent-video",
+  "name": "expo-transparent-video",
   "version": "0.0.1",
   "description": "An Android transparent video component for React Native and Expo",
   "keywords": [
@@ -27,12 +27,13 @@
     "prepublishOnly": "expo-module prepublishOnly",
     "test": "expo-module test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "expo-video": "0.0.1-canary-20240327-a7302d9",
+  },
   "devDependencies": {
     "expo-module-scripts": "^3.0.0"
   },
   "peerDependencies": {
-    "@expo/video": "0.0.1-canary-20240406-a4950c7",
     "expo": "*"
   },
   "title": "Expo Transparent Video"
