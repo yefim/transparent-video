@@ -1,21 +1,17 @@
 {
-  "name": "@expo/video",
-  "version": "0.3.1",
-  "description": "A cross-platform, performant video component for React Native and Expo with Web support",
+  "name": "expo-transparent-video",
+  "version": "0.0.1",
+  "description": "An Android transparent video component for React Native and Expo.",
   "keywords": [
     "react-native",
     "expo",
     "video",
-    "player"
+    "player",
+    "transparent"
   ],
-  "homepage": "https://docs.expo.dev/versions/latest/sdk/video/",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/expo/expo.git",
-    "directory": "packages/expo-video"
-  },
+  "homepage": "https://github.com/software-mansion-labs/transparent-video",
+  "repository": "https://github.com/software-mansion-labs/transparent-video.git",
   "license": "MIT",
-  "author": "650 Industries, Inc.",
   "sideEffects": false,
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -35,5 +31,6 @@
   "peerDependencies": {
     "expo": "*"
   },
-  "title": "Expo Video"
+  "title": "Expo Transparent Video",
+  "author": "Kamil Owczarz <kamil.owczarz@swmansion.com>"
 }
