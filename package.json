@@ -24,7 +24,10 @@
     "prepublishOnly": "expo-module prepublishOnly",
     "test": "expo-module test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "react-native": "^0.73.6",
+    "expo": "^50.0.13"
+  },
   "devDependencies": {
     "expo-module-scripts": "^3.0.0"
   },
