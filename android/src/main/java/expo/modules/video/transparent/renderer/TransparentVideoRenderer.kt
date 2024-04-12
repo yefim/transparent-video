@@ -32,8 +32,10 @@ internal class TransparentVideoRenderer(
   }
 
   override fun onSurfaceDestroyed() {
+    verticesBuffer.clear()
+    val program = openGlProgram ?: return
+    GLES20.glDeleteProgram(program.nativeProgram)
     openGlProgram = null
-    verticesBuffer
   }
 
   override fun onSurfaceChanged(gl: GL10, width: Int, height: Int) {
