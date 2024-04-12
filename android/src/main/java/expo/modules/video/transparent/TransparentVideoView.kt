@@ -57,6 +57,7 @@ class TransparentVideoView(context: Context, appContext: AppContext) : ExpoView(
         val aspectDeformation = (ratio / viewAspectRatio) - 1f
         if (abs(aspectDeformation) <= 0.01f) {
           // We're within the allowed tolerance.
+          super.onMeasure(widthMeasureSpec, heightMeasureSpec)
           return
         }
         if (aspectDeformation > 0) {
