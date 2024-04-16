@@ -10,6 +10,6 @@ internal fun checkOpenGLError(tag: String) {
     val errorString = GLU.gluErrorString(error)
     val exception = RuntimeException("$tag: glError $error : $errorString")
     Log.e(tag, null, exception)
-    throw exception
+//    throw exception
   }
 }
