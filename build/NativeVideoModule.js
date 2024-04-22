@@ -1,3 +1,5 @@
 import { requireNativeModule } from 'expo-modules-core';
-export default requireNativeModule('ExpoVideo');
+import { Platform } from "react-native";
+const module = Platform.OS === "android" ? requireNativeModule('ExpoVideo') : undefined;
+export default module;
 //# sourceMappingURL=NativeVideoModule.js.map

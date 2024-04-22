@@ -1,3 +1,3 @@
-declare const _default: any;
-export default _default;
+declare const module: any;
+export default module;
 //# sourceMappingURL=NativeVideoModule.d.ts.map
