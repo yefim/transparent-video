@@ -1,5 +1,6 @@
 import { PureComponent, ReactNode } from 'react';
-import { TransparentVideoViewProps, VideoSource } from './VideoView.types';
+import { TransparentVideoViewProps, VideoPlayer, VideoSource } from './VideoView.types';
+export declare function useVideoPlayer(source: VideoSource, enableDecoderFallback?: boolean): VideoPlayer;
 /**
  * Displays a video with an alpha channel.
  *

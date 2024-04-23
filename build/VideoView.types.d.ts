@@ -71,38 +71,15 @@ export declare class VideoPlayer {
     replay(): void;
     /**
      * deallocates the instance of video player.
-     * @platform android
      */
     deallocate(): void;
 }
-/**
- * Describes how a video should be scaled to fit in a container.
- * 'contain': The video maintains its aspect ratio and fits inside the container, with possible letterboxing/pillarboxing.
- * 'cover': The video maintains its aspect ratio and covers the entire container, potentially cropping some portions.
- * 'fill': The video stretches/squeezes to completely fill the container, potentially causing distortion.
- */
-type VideoContentFit = 'contain' | 'cover' | 'fill';
-export interface VideoViewProps extends ViewProps {
+export interface TransparentVideoViewProps extends ViewProps {
     /**
      * A player instance – use `useVideoPlayer()` to create one.
      */
     player: VideoPlayer;
-    /**
-     * Determines whether native controls should be displayed or not.
-     * @default true
-     */
-    nativeControls?: boolean;
-    /**
-     * Describes how the video should be scaled to fit in the container.
-     * Options are 'contain', 'cover', and 'fill'.
-     * @default 'contain'
-     */
-    contentFit?: VideoContentFit;
-    /**
-     * Determines whether fullscreen mode is allowed or not.
-     * @default true
-     */
-    allowsFullscreen?: boolean;
+    videoAspectRatio?: number;
     /**
      * Determines whether the timecodes should be displayed or not.
      * @default true
@@ -125,36 +102,7 @@ export interface VideoViewProps extends ViewProps {
         dx?: number;
         dy?: number;
     };
-    /**
-     * A callback to call after the video player enters Picture in Picture (PiP) mode.
-     * @platform android
-     * @platform ios 14+
-     */
-    onPictureInPictureStart?: () => void;
-    /**
-     * A callback to call after the video player exits Picture in Picture (PiP) mode.
-     * @platform android
-     * @platform ios 14+
-     */
-    onPictureInPictureStop?: () => void;
-    /**
-     * Determines whether the player allows Picture in Picture (PiP) mode.
-     * @default false
-     * @platform ios 14+
-     */
-    allowsPictureInPicture?: boolean;
-    /**
-     * Determines whether the player should start Picture in Picture (PiP) automatically when the app is in the background.
-     * > **Note:** Only one player can be in Picture in Picture (PiP) mode at a time.
-     * @default false
-     * @platform android 12+
-     * @platform ios 14.2+
-     */
-    startsPictureInPictureAutomatically?: boolean;
 }
-export type TransparentVideoViewProps = Omit<VideoViewProps, 'onPictureInPictureStart' | 'onPictureInPictureStop' | 'allowsPictureInPicture' | 'startsPictureInPictureAutomatically' | 'allowsFullscreen' | 'nativeControls' | 'contentFit'> & {
-    videoAspectRatio?: number;
-};
 /**
  * Specifies which type of DRM to use. Android supports Widevine, PlayReady and ClearKey, iOS supports FairPlay.
  * */

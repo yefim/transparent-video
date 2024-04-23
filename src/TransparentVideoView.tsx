@@ -1,8 +1,23 @@
-import { createRef, PureComponent, ReactNode } from 'react';
+import {createRef, PureComponent, ReactNode, useMemo} from 'react';
 
 import NativeTransparentVideoView from './NativeTransparentVideoView';
 import NativeVideoModule from './NativeVideoModule';
 import { TransparentVideoViewProps, VideoPlayer, VideoSource } from './VideoView.types';
+
+
+export function useVideoPlayer(source: VideoSource, enableDecoderFallback?: boolean): VideoPlayer {
+  return useMemo(() => {
+    if (typeof source === 'string') {
+      return new NativeVideoModule.VideoPlayer(
+          {
+            uri: source,
+          },
+          enableDecoderFallback
+      );
+    }
+    return new NativeVideoModule.VideoPlayer(source, enableDecoderFallback);
+  }, []);
+}
 
 /**
  * Displays a video with an alpha channel.
