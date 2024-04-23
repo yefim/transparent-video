@@ -29,12 +29,6 @@ import kotlin.properties.Delegates
 // https://developer.android.com/guide/topics/media/media3/getting-started/migration-guide#improvements_in_media3
 @UnstableApi
 class VideoPlayer(context: Context, private val appContext: AppContext, private val mediaItem: MediaItem, enableDecoderFallback: Boolean?) : AutoCloseable, SharedObject() {
-  private val currentActivity: Activity
-    get() {
-      return appContext.activityProvider?.currentActivity
-          ?: throw Exceptions.MissingActivity()
-    }
-
   // This improves the performance of playing DRM-protected content
   private var renderersFactory = DefaultRenderersFactory(context)
       .forceEnableMediaCodecAsynchronousQueueing()
@@ -64,7 +58,7 @@ class VideoPlayer(context: Context, private val appContext: AppContext, private 
       field = preservesPitch
     }
 
-  private var serviceConnection: ServiceConnection
+//  private var serviceConnection: ServiceConnection
   internal var playbackServiceBinder: PlaybackServiceBinder? = null
   lateinit var timeline: Timeline
 
@@ -121,47 +115,11 @@ class VideoPlayer(context: Context, private val appContext: AppContext, private 
   }
 
   init {
-    val intent = Intent(context, ExpoVideoPlaybackService::class.java)
-
-    serviceConnection = object : ServiceConnection {
-      override fun onServiceConnected(componentName: ComponentName, binder: IBinder) {
-        playbackServiceBinder = binder as? PlaybackServiceBinder
-        playbackServiceBinder?.service?.registerPlayer(player) ?: run {
-          Log.w(
-              "ExpoVideo",
-              "Expo Video could not bind to the playback service. " +
-                  "This will cause issues with playback notifications and sustaining background playback."
-          )
-        }
-      }
-
-      override fun onServiceDisconnected(componentName: ComponentName) {
-        playbackServiceBinder = null
-      }
-
-      override fun onNullBinding(componentName: ComponentName) {
-        Log.w(
-            "ExpoVideo",
-            "Expo Video could not bind to the playback service. " +
-                "This will cause issues with playback notifications and sustaining background playback."
-        )
-      }
-    }
-    intent.action = MediaSessionService.SERVICE_INTERFACE
-    currentActivity.apply {
-      startService(intent)
-      bindService(intent, serviceConnection, BIND_AUTO_CREATE)
-    }
     player.addListener(playerListener)
     VideoManager.registerVideoPlayer(this)
   }
 
   override fun close() {
-    try {
-      appContext.reactContext?.unbindService(serviceConnection)
-    } catch (e: Exception) {
-      println(e.message)
-    }
     playbackServiceBinder?.service?.unregisterPlayer(player)
     VideoManager.unregisterVideoPlayer(this@VideoPlayer)
 
