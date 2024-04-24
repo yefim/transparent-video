@@ -12,6 +12,7 @@ import androidx.media3.exoplayer.DefaultRenderersFactory
 import androidx.media3.exoplayer.ExoPlayer
 import expo.modules.kotlin.AppContext
 import expo.modules.kotlin.sharedobjects.SharedObject
+import expo.modules.kotlin.viewevent.ViewEventCallback
 import kotlinx.coroutines.launch
 
 // https://developer.android.com/guide/topics/media/media3/getting-started/migration-guide#improvements_in_media3
@@ -36,6 +37,8 @@ class VideoPlayer(context: Context, private val appContext: AppContext, private 
   var playing = false
   var isLoading = true
 
+  var onEndCallback: ViewEventCallback<Map<String, Any>>? = null
+  var onErrorCallback: ViewEventCallback<Map<String, Any>>? = null
   // Volume of the player if there was no mute applied.
   var userVolume = 1f
   var requiresLinearPlayback = false
@@ -76,6 +79,17 @@ class VideoPlayer(context: Context, private val appContext: AppContext, private 
   private val playerListener = object : Player.Listener {
     override fun onIsPlayingChanged(isPlaying: Boolean) {
       this@VideoPlayer.playing = isPlaying
+    }
+
+    override fun onPlaybackStateChanged(playbackState: Int) {
+      super.onPlaybackStateChanged(playbackState)
+      if (playbackState == Player.STATE_ENDED) {
+        if (player.playerError != null) {
+          onErrorCallback?.invoke(mapOf("error" to player.playerError.toString()))
+        } else {
+          onEndCallback?.invoke(mapOf())
+        }
+      }
     }
 
     override fun onTimelineChanged(timeline: Timeline, reason: Int) {

@@ -39,8 +39,6 @@ export declare class VideoPlayer {
    * Boolean value indicating if the player should correct audio pitch when the playback speed changes.
    * > On web, changing this property is not supported, the player will always correct the pitch.
    * @default true
-   * @platform android
-   * @platform ios
    */
   preservesPitch: boolean;
 
@@ -53,8 +51,6 @@ export declare class VideoPlayer {
   /**
    * Determines whether the player should continue playing after the app enters the background.
    * @default false
-   * @platform ios
-   * @platform android
    */
   staysActiveInBackground: boolean;
 
@@ -90,35 +86,29 @@ export declare class VideoPlayer {
 }
 
 
+interface NativeErrorEvent {
+  nativeEvent: {
+    error: string
+  }
+}
+
 export interface TransparentVideoViewProps extends ViewProps {
   /**
    * A player instance – use `useVideoPlayer()` to create one.
    */
   player: VideoPlayer;
 
-  videoAspectRatio?: number
+  videoAspectRatio?: number;
 
-  /**
-   * Determines whether the timecodes should be displayed or not.
-   * @default true
-   * @platform ios
-   */
-  showsTimecodes?: boolean;
+  onEnd: () => void;
+
+  onError: (event: NativeErrorEvent) => void;
 
   /**
    * Determines whether the player allows the user to skip media content.
    * @default false
-   * @platform android
-   * @platform ios
    */
   requiresLinearPlayback?: boolean;
-
-  /**
-   * Determines the position offset of the video inside the container.
-   * @default { dx: 0, dy: 0 }
-   * @platform ios
-   */
-  contentPosition?: { dx?: number; dy?: number };
 }
 
 /**
@@ -147,21 +137,8 @@ type DRMOptions = {
 
   /**
    * Specifies whether the DRM is a multi-key DRM.
-   * @platform android
    */
   multiKey?: boolean;
-
-  /**
-   * Specifies the content ID of the stream.
-   * @platform ios
-   */
-  contentId?: string;
-
-  /**
-   * Specifies the certificate URL for the FairPlay DRM.
-   * @platform ios
-   */
-  certificateUrl?: string;
 };
 
 export type VideoSource = string | { uri: string; drm?: DRMOptions } | null;

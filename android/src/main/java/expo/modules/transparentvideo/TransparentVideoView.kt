@@ -8,6 +8,7 @@ import android.view.TextureView
 import androidx.annotation.OptIn
 import androidx.media3.common.util.UnstableApi
 import expo.modules.kotlin.AppContext
+import expo.modules.kotlin.viewevent.EventDispatcher
 import expo.modules.kotlin.views.ExpoView
 import expo.modules.transparentvideo.glTexture.GLTextureViewListener
 import expo.modules.transparentvideo.renderer.TransparentVideoRenderer
@@ -22,6 +23,8 @@ import kotlin.math.abs
 @OptIn(UnstableApi::class)
 class TransparentVideoView(context: Context, appContext: AppContext) : ExpoView(context, appContext) {
   val id: String = UUID.randomUUID().toString()
+  private val onEnd by EventDispatcher()
+  private val onError by EventDispatcher()
 
 
   var videoPlayer: VideoPlayer? = null
@@ -90,6 +93,8 @@ class TransparentVideoView(context: Context, appContext: AppContext) : ExpoView(
     val surface = Surface(surfaceTexture).also { mediaPlayerSurface = it }
     coroutineScope.launch {
       videoPlayer?.player?.setVideoSurface(surface)
+      videoPlayer?.onEndCallback = onEnd
+      videoPlayer?.onErrorCallback = onError
     }
   }
 
@@ -99,4 +104,3 @@ class TransparentVideoView(context: Context, appContext: AppContext) : ExpoView(
     }
   }
 }
-
