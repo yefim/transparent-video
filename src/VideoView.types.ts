@@ -28,6 +28,11 @@ export declare class VideoPlayer {
   currentTime: number;
 
   /**
+   * Integer value representing the duration of the current content in seconds.
+   */
+  playableDuration: number;
+
+  /**
    * Float value between 0 and 1 representing the current volume.
    * Muting the player doesn't affect the volume. In other words, when the player is muted, the volume is the same as
    * when unmuted. Similarly, setting the volume doesn't unmute the player.

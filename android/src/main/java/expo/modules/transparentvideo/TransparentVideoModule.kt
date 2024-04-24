@@ -75,6 +75,14 @@ class TransparentVideoModule : Module() {
             }
           }
 
+      Property("playableDuration")
+          .get { ref: VideoPlayer ->
+            // TODO: same as above
+            runBlocking(appContext.mainQueue.coroutineContext) {
+              ref.player.duration / 1000f
+            }
+          }
+
       Property("playbackRate")
           .get { ref: VideoPlayer ->
             ref.playbackParameters.speed
