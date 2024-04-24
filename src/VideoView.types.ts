@@ -105,9 +105,9 @@ export interface TransparentVideoViewProps extends ViewProps {
 
   videoAspectRatio?: number;
 
-  onEnd: () => void;
+  onEnd?: () => void;
 
-  onError: (event: NativeErrorEvent) => void;
+  onError?: (event: NativeErrorEvent) => void;
 
   /**
    * Determines whether the player allows the user to skip media content.
