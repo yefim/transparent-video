@@ -176,7 +176,7 @@ class TransparentVideoModule : Module() {
         view.videoAspectRatio = videoAspectRatio
       }
 
-      Events("onEnd", "onError")
+      Events("onEnd", "onError", "onVideoProgress")
 
       OnViewDestroys {
         TransparentVideoManager.unregisterVideoView(it)

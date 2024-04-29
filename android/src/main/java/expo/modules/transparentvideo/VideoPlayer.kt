@@ -1,6 +1,8 @@
 package expo.modules.transparentvideo
 
 import android.content.Context
+import android.os.Handler
+import android.os.Looper
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackParameters
 import androidx.media3.common.Player
@@ -10,10 +12,13 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.DefaultLoadControl
 import androidx.media3.exoplayer.DefaultRenderersFactory
 import androidx.media3.exoplayer.ExoPlayer
+import com.facebook.react.bridge.Arguments
 import expo.modules.kotlin.AppContext
 import expo.modules.kotlin.sharedobjects.SharedObject
 import expo.modules.kotlin.viewevent.ViewEventCallback
 import kotlinx.coroutines.launch
+import kotlin.math.roundToLong
+
 
 // https://developer.android.com/guide/topics/media/media3/getting-started/migration-guide#improvements_in_media3
 @UnstableApi
@@ -39,6 +44,24 @@ class VideoPlayer(context: Context, private val appContext: AppContext, private 
 
   var onEndCallback: ViewEventCallback<Map<String, Any>>? = null
   var onErrorCallback: ViewEventCallback<Map<String, Any>>? = null
+  var onVideoProgress: ViewEventCallback<Map<String, Any>>? = null
+
+  private val mProgressUpdateHandler = Handler(Looper.getMainLooper())
+  private val mProgressUpdateRunnable = object: Runnable {
+    override fun run() {
+      if (player.isPlaying) {
+        val eventMap = mutableMapOf<String, Any>()
+        eventMap["duration"] = player.currentPosition / 1000.0
+        eventMap["playableDuration"] = player.totalBufferedDuration / 1000.0
+        eventMap["seekableDuration"] = player.duration / 1000.0
+        onVideoProgress?.invoke(eventMap)
+
+        // Check for update after an interval
+        mProgressUpdateHandler.postDelayed(this, 250.0f.roundToLong())
+      }
+    }
+  }
+
   // Volume of the player if there was no mute applied.
   var userVolume = 1f
   var requiresLinearPlayback = false
@@ -79,6 +102,9 @@ class VideoPlayer(context: Context, private val appContext: AppContext, private 
   private val playerListener = object : Player.Listener {
     override fun onIsPlayingChanged(isPlaying: Boolean) {
       this@VideoPlayer.playing = isPlaying
+      if (isPlaying) {
+        mProgressUpdateHandler.post(mProgressUpdateRunnable)
+      }
     }
 
     override fun onPlaybackStateChanged(playbackState: Int) {
