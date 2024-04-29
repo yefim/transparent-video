@@ -97,6 +97,14 @@ interface NativeErrorEvent {
   }
 }
 
+interface NativeOnProgressEvent {
+  nativeEvent: {
+    currentTime: number,
+    playableDuration: number,
+    seekableDuration: number,
+  }
+}
+
 export interface TransparentVideoViewProps extends ViewProps {
   /**
    * A player instance – use `useVideoPlayer()` to create one.
@@ -108,6 +116,8 @@ export interface TransparentVideoViewProps extends ViewProps {
   onEnd?: () => void;
 
   onError?: (event: NativeErrorEvent) => void;
+
+  onVideoProgress?: (event: NativeOnProgressEvent) => void;
 
   /**
    * Determines whether the player allows the user to skip media content.
