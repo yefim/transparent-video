@@ -12,7 +12,6 @@ import androidx.media3.common.util.UnstableApi
 import androidx.media3.exoplayer.DefaultLoadControl
 import androidx.media3.exoplayer.DefaultRenderersFactory
 import androidx.media3.exoplayer.ExoPlayer
-import com.facebook.react.bridge.Arguments
 import expo.modules.kotlin.AppContext
 import expo.modules.kotlin.sharedobjects.SharedObject
 import expo.modules.kotlin.viewevent.ViewEventCallback
@@ -47,14 +46,15 @@ class VideoPlayer(context: Context, private val appContext: AppContext, private 
   var onVideoProgress: ViewEventCallback<Map<String, Any>>? = null
 
   private val mProgressUpdateHandler = Handler(Looper.getMainLooper())
-  private val mProgressUpdateRunnable = object: Runnable {
+  private val mProgressUpdateRunnable = object : Runnable {
     override fun run() {
       if (player.isPlaying) {
-        val eventMap = mutableMapOf<String, Any>()
-        eventMap["duration"] = player.currentPosition / 1000.0
-        eventMap["playableDuration"] = player.totalBufferedDuration / 1000.0
-        eventMap["seekableDuration"] = player.duration / 1000.0
-        onVideoProgress?.invoke(eventMap)
+        val map = mapOf(
+            "currentTime" to player.currentPosition / 1000.0,
+            "playableDuration" to player.totalBufferedDuration / 1000.0,
+            "seekableDuration" to player.duration / 1000.0
+        )
+        onVideoProgress?.invoke(map)
 
         // Check for update after an interval
         mProgressUpdateHandler.postDelayed(this, 250.0f.roundToLong())
@@ -72,7 +72,7 @@ class VideoPlayer(context: Context, private val appContext: AppContext, private 
       field = preservesPitch
     }
 
-//  private var serviceConnection: ServiceConnection
+  //  private var serviceConnection: ServiceConnection
   lateinit var timeline: Timeline
 
   var aspectRatio: Float? = null
