@@ -25,7 +25,7 @@ class TransparentVideoView(context: Context, appContext: AppContext) : ExpoView(
   val id: String = UUID.randomUUID().toString()
   private val onEnd by EventDispatcher()
   private val onError by EventDispatcher()
-  private val onVideoProgress by EventDispatcher()
+  private val onProgress by EventDispatcher()
 
 
   var videoPlayer: VideoPlayer? = null
@@ -96,7 +96,7 @@ class TransparentVideoView(context: Context, appContext: AppContext) : ExpoView(
       videoPlayer?.player?.setVideoSurface(surface)
       videoPlayer?.onEndCallback = onEnd
       videoPlayer?.onErrorCallback = onError
-      videoPlayer?.onVideoProgress = onVideoProgress
+      videoPlayer?.onProgress = onProgress
     }
   }
 

@@ -43,7 +43,7 @@ class VideoPlayer(context: Context, private val appContext: AppContext, private 
 
   var onEndCallback: ViewEventCallback<Map<String, Any>>? = null
   var onErrorCallback: ViewEventCallback<Map<String, Any>>? = null
-  var onVideoProgress: ViewEventCallback<Map<String, Any>>? = null
+  var onProgress: ViewEventCallback<Map<String, Any>>? = null
 
   private val mProgressUpdateHandler = Handler(Looper.getMainLooper())
   private val mProgressUpdateRunnable = object : Runnable {
@@ -54,7 +54,7 @@ class VideoPlayer(context: Context, private val appContext: AppContext, private 
             "playableDuration" to player.totalBufferedDuration / 1000.0,
             "seekableDuration" to player.duration / 1000.0
         )
-        onVideoProgress?.invoke(map)
+        onProgress?.invoke(map)
 
         // Check for update after an interval
         mProgressUpdateHandler.postDelayed(this, 250.0f.roundToLong())

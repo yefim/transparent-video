@@ -79,7 +79,7 @@ class TransparentVideoModule : Module() {
           .get { ref: VideoPlayer ->
             // TODO: same as above
             runBlocking(appContext.mainQueue.coroutineContext) {
-              ref.player.duration / 1000f
+              ref.player.totalBufferedDuration / 1000f
             }
           }
 
@@ -176,7 +176,7 @@ class TransparentVideoModule : Module() {
         view.videoAspectRatio = videoAspectRatio
       }
 
-      Events("onEnd", "onError", "onVideoProgress")
+      Events("onEnd", "onError", "onProgress")
 
       OnViewDestroys {
         TransparentVideoManager.unregisterVideoView(it)
