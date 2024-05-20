@@ -1,3 +1,3 @@
-declare const _default: import("react").ComponentType<any>;
-export default _default;
+declare const NativeView: import("react").ComponentType<any> | ((_: any) => null);
+export default NativeView;
 //# sourceMappingURL=NativeTransparentVideoView.d.ts.map
