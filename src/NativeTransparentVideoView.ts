@@ -1,3 +1,5 @@
 import { requireNativeViewManager } from 'expo-modules-core';
+import { Platform } from "react-native";
 
-export default requireNativeViewManager('ExpoTransparentVideo');
+const NativeView = Platform.OS === "android" ? requireNativeViewManager('ExpoTransparentVideo') : (_: any) => null;
+export default NativeView;
