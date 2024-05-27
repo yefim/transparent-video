@@ -1,6 +1,6 @@
 {
   "name": "expo-transparent-video",
-  "version": "0.2.0",
+  "version": "0.1.6",
   "description": "An Android transparent video component for React Native and Expo.",
   "keywords": [
     "react-native",
@@ -25,11 +25,11 @@
     "test": "expo-module test"
   },
   "dependencies": {
-    "expo": "^51.0.8",
-    "react-native": "0.74.1"
+    "react-native": "^0.73.6",
+    "expo": "^50.0.13"
   },
   "devDependencies": {
-    "expo-module-scripts": "^3.5.1"
+    "expo-module-scripts": "^3.0.0"
   },
   "peerDependencies": {
     "expo": "*"
