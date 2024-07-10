@@ -21,7 +21,7 @@ import kotlin.math.roundToLong
 
 // https://developer.android.com/guide/topics/media/media3/getting-started/migration-guide#improvements_in_media3
 @UnstableApi
-class VideoPlayer(context: Context, private val appContext: AppContext, private val mediaItem: MediaItem, enableDecoderFallback: Boolean?) : AutoCloseable, SharedObject() {
+class VideoPlayer(context: Context, appContext: AppContext, private val mediaItem: MediaItem, enableDecoderFallback: Boolean?) : AutoCloseable, SharedObject(appContext) {
   // This improves the performance of playing DRM-protected content
   private var renderersFactory = DefaultRenderersFactory(context)
       .forceEnableMediaCodecAsynchronousQueueing()
@@ -149,7 +149,7 @@ class VideoPlayer(context: Context, private val appContext: AppContext, private 
   override fun close() {
     TransparentVideoManager.unregisterVideoPlayer(this@VideoPlayer)
 
-    appContext.mainQueue.launch {
+    appContext?.mainQueue?.launch {
       player.removeListener(playerListener)
       player.release()
     }
