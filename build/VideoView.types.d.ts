@@ -8,6 +8,7 @@ export declare class VideoPlayer {
      * > This property is get-only, use `play` and `pause` methods to control the playback.
      */
     playing: boolean;
+    paused?: boolean;
     /**
      * Determines whether the player should automatically replay after reaching the end of the video.
      * @default false

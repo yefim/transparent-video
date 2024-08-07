@@ -10,6 +10,9 @@ export declare class VideoPlayer {
    */
   playing: boolean;
 
+
+  paused?: boolean;
+
   /**
    * Determines whether the player should automatically replay after reaching the end of the video.
    * @default false

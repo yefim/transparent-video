@@ -25,14 +25,19 @@ class TransparentVideoModule : Module() {
   override fun definition() = ModuleDefinition {
     Name("ExpoTransparentVideo")
     Class(VideoPlayer::class) {
-      Constructor { source: VideoSource, enableDecoderFallback: Boolean? ->
-        VideoPlayer(activity.applicationContext, appContext, source.toMediaItem(), enableDecoderFallback)
+      Constructor { source: VideoSource, enableDecoderFallback: Boolean?, progressUpdateInterval: Float? ->
+        VideoPlayer(activity.applicationContext, appContext, source.toMediaItem(), enableDecoderFallback, progressUpdateInterval)
       }
 
       Property("playing")
           .get { ref: VideoPlayer ->
             ref.playing
           }
+
+      Property("paused")
+        .get { ref: VideoPlayer ->
+          !ref.playing
+        }
 
       Property("isLoading")
           .get { ref: VideoPlayer ->
