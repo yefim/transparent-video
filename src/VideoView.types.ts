@@ -10,8 +10,11 @@ export declare class VideoPlayer {
    */
   playing: boolean;
 
-
-  paused?: boolean;
+  /**
+   * Boolean value whether the player is currently paused.
+   * > This property is get-only, use `play` and `pause` methods to control the playback.
+   */
+  paused: boolean;
 
   /**
    * Determines whether the player should automatically replay after reaching the end of the video.
